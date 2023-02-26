@@ -4,24 +4,23 @@
 #include <string>
 #include <queue>
 using namespace std;
-int main(int argc, char** argv){
-    queue<int> q;
-    priority_queue<int, vector<int>, greater<int>> qq;
-    qq.push(7);
-    qq.push(8);
-    qq.emplace(9);
-    q.push(7);
-    q.push(8);
-    q.emplace(9);
+struct A
+{
     
-    while (q.size()) {
-        cout << q.front() << ' ';
-        q.pop();
-    }
-
-    while (qq.size()) {
-        cout << qq.top() << ' ';
-        qq.pop();
-    }
+    
+    int i;
+    char c1;
+    
+};
+struct B
+{
+    char c1;
+    int i;
+    char c2;
+    double d;
+};
+int main(int argc, char** argv){
+    cout << "A's size: " << sizeof(A) << endl;
+    cout << "B's size: " << sizeof(B) << endl;
     return 0;
 }
