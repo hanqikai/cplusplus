@@ -5,6 +5,7 @@
         "queue": "cpp",
         "iostream": "cpp",
         "*.tcc": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "string": "cpp"
     }
 }
