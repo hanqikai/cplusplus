@@ -8,35 +8,27 @@
 #include <map>
 #include <typeinfo>
 #include <memory>
+#include <functional>
 using namespace std;
+// 普通函数
+int add(int i, int j) { return i + j; }
 
-class StrBlobPtr {
-public:
-    StrBlobPtr(): curr(0) { }
-    StrBlobPtr(StrBlob &a, size_t sz = 0): wptr(a.data), curr(sz) { }
-    std::string& deref() const;
-    StrBlobPtr& incr();  // 前缀递增
-    
-
-
-private:
-    // 若检查成功，check返回一个指向vector的shared_ptr
-    std::shared_ptr<std::vector<std::string>> check(std::size_t, const std::string&) const;
-    // 保存一个weak_ptr，意味着底层vector可能会被销毁
-    std::weak_ptr<std::vector<std::string>> wptr;
-    std::size_t curr;  // 在数组中的当前位置
+// lambda，其产生一个未命名的函数对象类
+auto mod = [](int i, int j) { return i % j;};
+//函数对象类
+struct divide {
+    int operator() (int denominator, int divisor) {
+        return denominator / divisor;
+    }
 };
-
-
-
 int main(int argc, char** argv){
-
-    char a ='1';
-    int b = 1;
-    cout << "char a's type is " << typeid(a).name() << endl;
-    cout << "int b's type is " << typeid(b).name() << endl;
-    cout << "after operator" << endl;
-    cout << "char a's type is " << typeid(a - '0').name() << endl;
-    cout << "int b's type is " << typeid(char('0' + b)).name() << endl;
+function<int(int, int)> f1 = add;  // 函数指针
+function<int(int, int)> f2 = divide();  // 函数对象类的对象
+function<int(int, int)> f3 = [](int i, int j) { return i * j; };  // lambda
+function<int(int, int)> f4 = mod;
+cout << f1(4, 2) << endl;  // 打印6
+cout << f2(4, 2) << endl;  // 打印2
+cout << f3(4, 2) << endl;  // 打印8
+cout << f4(4, 2) << endl;  // 打印0
     return 0;
 }
